@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+name: foundry-iq-agent-ready-knowledge
+metadata:
+  template: foundry-iq-agent-ready-knowledge
+hooks:
+  postprovision:
+    posix:
+      shell: sh
+      run: infra/hooks/postprovision.sh
+      interactive: true
+    windows:
+      shell: pwsh
+      run: infra/hooks/postprovision.ps1
+      interactive: true
+      
