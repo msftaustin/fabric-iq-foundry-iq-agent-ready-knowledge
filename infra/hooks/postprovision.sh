@@ -35,8 +35,4 @@ if [ -n "${FABRIC_CAPACITY_ID:-}" ]; then
     "$VENV_PYTHON" infra/create-lakehouse.py
 fi
 
-# Note: Email seeding (seed-emails.ps1) requires a service principal with
-# Mail.Send application permission and is only used in the Skillable hosted lab.
-# For self-deploy, Part 4 (Work IQ) will use your own mailbox data.
-
-echo "Postprovision complete! If there were no errors, you can open notebooks/ to start the workshop."
+echo "Postprovision complete. Open notebooks/ to prepare the live demo."

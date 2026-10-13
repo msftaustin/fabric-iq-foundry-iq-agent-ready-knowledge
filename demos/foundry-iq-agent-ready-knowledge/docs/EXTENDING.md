@@ -1,14 +1,14 @@
 # Extending Agent-Ready Knowledge with Foundry IQ
 
-Use these extension points to adapt the workshop while preserving its progressive five-part
-learning flow.
+Use these extension points to adapt the internal customer demo while preserving the five-part
+technical story.
 
 ## Extension points
 
 - **Scenario and presenter story:** Update
   [`../walkthrough/index.html`](../walkthrough/index.html) and
   [`../walkthrough/README.md`](../walkthrough/README.md) for the audience. Keep business claims
-  aligned with what the technical lab demonstrates.
+  aligned with what the live demo presents.
 - **Documents and indexes:** Replace or add sample content under
   [`../../../data/`](../../../data/) and update the index setup in
   [`../../../infra/`](../../../infra/).
@@ -16,10 +16,9 @@ learning flow.
   [`../../../notebooks/`](../../../notebooks/) one part at a time. Preserve citations and source
   attribution in the resulting experience.
 - **Deployment:** Extend [`../../../infra/main.bicep`](../../../infra/main.bicep) and the
-  lifecycle hooks only when the new scenario requires additional resources.
-- **Workshop guidance:** Keep [`../../../README.md`](../../../README.md),
-  [`../../../workshop/README.md`](../../../workshop/README.md), and
-  [`../../../deploy_yourself.md`](../../../deploy_yourself.md) synchronized with behavior changes.
+  post-provision hooks only when the demo requires additional resources.
+- **Presenter guidance:** Keep [`../../../README.md`](../../../README.md) and
+  [`../../../DEMO_SETUP.md`](../../../DEMO_SETUP.md) synchronized with behavior changes.
 
 ## Ideas
 

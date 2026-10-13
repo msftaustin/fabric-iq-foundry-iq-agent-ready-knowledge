@@ -1,26 +1,18 @@
 # Deploying Agent-Ready Knowledge with Foundry IQ
 
-Infrastructure remains in the repository's [`infra/`](../../../infra/) folder and uses the root
+Infrastructure is in the repository's [`infra/`](../../../infra/) folder and uses the root
 [`azure.yaml`](../../../azure.yaml) entry point. Keeping those paths stable preserves the
-existing Azure Developer CLI lifecycle hooks and notebook setup.
+Azure Developer CLI hooks and notebook setup.
 
-## Options
+## Microsoft Presenter Setup
 
-| Target | Steps |
-|---|---|
-| Instructor-provided environment | Follow the [guided workshop](../../../workshop/README.md). |
-| Your Azure environment | Follow the complete [self-deployment guide](../../../deploy_yourself.md). |
+Use the [demo environment runbook](../../../DEMO_SETUP.md) to provision in an approved
+Microsoft-controlled demo tenant. The intended configuration includes Azure AI Search, Foundry,
+and Fabric.
 
-## Self-deployment
-
-Review all prerequisites, supported tenant capabilities, security notes, and cost guidance before
-running:
-
-```bash
-az login
-azd auth login
-azd up
-```
+The deployment writes tenant-specific values and service keys to the local `.env` file. It is
+Git-ignored. Never commit or share it. Work IQ and Web IQ access are optional and are not
+provisioned by `azd up`.
 
 The deployment writes environment-specific values to the local `.env` file. Never commit or
 share that file.
@@ -33,5 +25,5 @@ Delete the resources created by Azure Developer CLI:
 azd down --purge --force
 ```
 
-Complete the [cleanup verification steps](../../../deploy_yourself.md#cleanup) because Fabric
-capacity and tenant-scoped resources may require separate confirmation.
+Complete the [cleanup checks](../../../DEMO_SETUP.md#cleanup) because Fabric capacity and
+tenant-scoped resources may require separate confirmation.

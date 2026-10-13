@@ -6,8 +6,8 @@ live web content, structured Fabric data, and workplace context.
 | | |
 |---|---|
 | **Status** | ready |
-| **Audience** | Business stakeholders (walkthrough), developers and architects (technical lab) |
-| **Time to demo** | About 8 minutes (walkthrough), 90-150 minutes (full lab) |
+| **Audience** | Microsoft presenters and customer-facing technical teams |
+| **Time to demo** | About 8 minutes (walkthrough), 30-60 minutes (live technical demo) |
 
 ## Non-technical: click-through walkthrough
 
@@ -18,37 +18,29 @@ arrow keys to step through the story. Press **N** to show presenter notes.
 Use the [`walkthrough/README.md`](walkthrough/README.md) presenter script for talking points,
 timing, and common questions.
 
-## Technical: run, deploy, and extend
+## Technical: prepare and run the demo
 
-The existing workshop stays at the repository root so its deployment automation and notebook
-paths remain stable.
+The notebooks and deployment scripts are the implementation used by the Microsoft presenter.
+Customers are not expected to provision or operate this repository.
 
 | What | Where |
 |---|---|
-| Guided workshop | [`../../workshop/README.md`](../../workshop/README.md) |
-| Source notebooks | [`../../notebooks/`](../../notebooks/) |
-| Self-deployment | [`../../deploy_yourself.md`](../../deploy_yourself.md) |
+| Presenter setup | [`../../DEMO_SETUP.md`](../../DEMO_SETUP.md) |
+| Live demo notebooks | [`../../notebooks/`](../../notebooks/) |
 | Deployment entry point | [`../../azure.yaml`](../../azure.yaml) |
 | Infrastructure | [`../../infra/`](../../infra/) |
 | Extension guidance | [`docs/EXTENDING.md`](docs/EXTENDING.md) |
 
 ### Quickstart
 
-For an instructor-provided environment, follow the
-[guided workshop](../../workshop/README.md). For your own Azure environment, review the
-[prerequisites and tenant requirements](../../deploy_yourself.md#prerequisites), then run:
+Prepare the Microsoft-controlled demo tenant and environment by following the
+[demo setup runbook](../../DEMO_SETUP.md). After provisioning the full Azure+Fabric environment,
+open the notebooks in VS Code and run Parts 1 and 3. The runbook also covers validation and
+cleanup.
 
-```bash
-az login
-azd auth login
-azd up
-```
-
-Follow the five notebooks in order and clean up with:
-
-```bash
-azd down --purge --force
-```
+Parts 2, 4, and 5 are optional extensions. They need Web IQ access or approved, synthetic
+Microsoft 365 demo content and a dedicated demo identity. Never use an employee's personal
+mailbox or a customer's account in a live demonstration.
 
 ### Architecture
 
@@ -65,8 +57,8 @@ flowchart LR
 ### Prerequisites
 
 - A modern browser for the click-through
-- Azure CLI, Azure Developer CLI, and Python 3.10 or later for self-deployment
+- Azure CLI, Azure Developer CLI, and Python 3.10 or later for the presenter
 - An Azure subscription with deployment permissions
-- Microsoft Fabric for Parts 3 and 5
-- Work IQ access for Parts 4 and 5
-- Web IQ access or a separately supplied key for Part 2
+- Microsoft Fabric enabled in the demo tenant
+- Web IQ access for optional Part 2
+- Approved Work IQ demo content and a dedicated identity for optional Parts 4 and 5

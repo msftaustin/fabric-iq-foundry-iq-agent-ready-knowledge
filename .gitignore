@@ -1,12 +1,6 @@
-# Local and generated files
-
-Template files will not be tracked by git.
+# Temporary and locally generated files
 *.bak
 *.tmp
-
-# Source materials folder — contents excluded, README tracked
-_remove-before-publish/*
-!_remove-before-publish/README.md
 
 # OS files
 .DS_Store
@@ -21,6 +15,10 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+
+# Source material kept out of the published repository
+_remove-before-publish/*
+!_remove-before-publish/README.md
 
 # Dependencies (if applicable)
 node_modules/

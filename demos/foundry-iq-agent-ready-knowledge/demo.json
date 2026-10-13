@@ -7,12 +7,12 @@
   "tags": ["foundry-iq", "azure-ai-search", "fabric-iq", "work-iq", "python"],
   "walkthrough": "walkthrough/index.html",
   "deploy": {
-    "targets": ["guided-workshop", "azure-developer-cli"],
+    "targets": ["azure", "fabric", "azure-developer-cli"],
     "guide": "infra/README.md"
   },
   "prerequisites": [
     "A modern browser for the click-through",
-    "Instructor-provided resources or an Azure subscription for the technical lab",
-    "Microsoft Fabric and Work IQ access for the corresponding lab parts"
+    "Microsoft-controlled Azure subscription and demo tenant",
+    "Microsoft Fabric for the core demo and approved Work IQ access for optional parts"
   ]
 }

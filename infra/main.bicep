@@ -145,10 +145,10 @@ resource searchServiceToCognitiveServicesUserRoleAssignment 'Microsoft.Authoriza
 }
 
 // ===============================================
-// LAB USER ROLE ASSIGNMENTS
+// DEMO OPERATOR ROLE ASSIGNMENTS
 // ===============================================
 
-// Search Service Contributor role for lab user
+// Search Service Contributor role for the demo operator
 resource userSearchContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(subscription().id, resourceGroup().id, searchService.name, principalId, '7ca78c08-252a-4471-8644-bb5ff32d4ba0')
   scope: searchService
@@ -159,7 +159,7 @@ resource userSearchContributorRoleAssignment 'Microsoft.Authorization/roleAssign
   }
 }
 
-// Search Index Data Reader role for lab user
+// Search Index Data Reader role for the demo operator
 resource userSearchIndexReaderRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(subscription().id, resourceGroup().id, searchService.name, principalId, '1407120a-92aa-4202-b7e9-c0e197c71c8f')
   scope: searchService
@@ -170,7 +170,7 @@ resource userSearchIndexReaderRoleAssignment 'Microsoft.Authorization/roleAssign
   }
 }
 
-// Search Index Data Contributor role for lab user
+// Search Index Data Contributor role for the demo operator
 resource userSearchIndexDataContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(subscription().id, resourceGroup().id, searchService.name, principalId, '8ebe5a00-799e-43f5-93ac-243d3dce84a7')
   scope: searchService
@@ -274,7 +274,7 @@ resource llmModelDeployment 'Microsoft.CognitiveServices/accounts/deployments@20
   ]
 }
 
-// Azure AI User role for lab user on Microsoft Foundry account (needed for Azure OpenAI API)
+// Azure AI User role for the demo operator on Microsoft Foundry account (needed for Azure OpenAI API)
 resource userMicrosoftFoundryAccountRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(microsoftFoundryAccount.id, 'Azure AI User', principalId)
   scope: microsoftFoundryAccount
@@ -285,7 +285,7 @@ resource userMicrosoftFoundryAccountRoleAssignment 'Microsoft.Authorization/role
   }
 }
 
-// Azure AI Project Manager role for lab user on Microsoft Foundry account
+// Azure AI Project Manager role for the demo operator on Microsoft Foundry account
 resource userMicrosoftFoundryAccountProjectManagerRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(microsoftFoundryAccount.id, 'Azure AI Project Manager', principalId)
   scope: microsoftFoundryAccount
@@ -296,7 +296,7 @@ resource userMicrosoftFoundryAccountProjectManagerRoleAssignment 'Microsoft.Auth
   }
 }
 
-// Azure AI User role for lab user on Microsoft Foundry project (needed for projects/agents API)
+// Azure AI User role for the demo operator on Microsoft Foundry project (needed for projects/agents API)
 resource userMicrosoftFoundryProjectRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(microsoftFoundryProject.id, 'Azure AI User', principalId)
   scope: microsoftFoundryProject
@@ -307,7 +307,7 @@ resource userMicrosoftFoundryProjectRoleAssignment 'Microsoft.Authorization/role
   }
 }
 
-// Azure AI Project Manager role for lab user on Microsoft Foundry project (needed for agents/write)
+// Azure AI Project Manager role for the demo operator on Microsoft Foundry project (needed for agents/write)
 resource userMicrosoftFoundryProjectManagerRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(microsoftFoundryProject.id, 'Azure AI Project Manager', principalId)
   scope: microsoftFoundryProject

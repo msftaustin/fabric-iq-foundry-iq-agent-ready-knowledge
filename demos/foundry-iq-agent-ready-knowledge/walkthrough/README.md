@@ -21,7 +21,7 @@ for a non-technical audience and can be presented without Azure access.
 | 4 | Structured Fabric data | "Fabric IQ contributes business entities and relationships through an ontology." |
 | 5 | Workplace context | "Work IQ adds context available to the signed-in user while respecting source access." |
 | 6 | Combined answer | "Foundry IQ coordinates these sources and synthesizes one grounded, citation-backed response." |
-| 7 | Next step | "We can run the guided lab or deploy the technical workshop into an authorized Azure environment." |
+| 7 | Next step | "A Microsoft presenter can run the technical demo in an approved Azure and Fabric demo tenant." |
 
 ## Suggested opening
 
@@ -31,24 +31,24 @@ experience."
 
 ## Suggested close
 
-"The lab builds this pattern one source at a time, so your technical team can see where the
+"The live demo builds this pattern one source at a time, so your technical team can see where the
 context comes from, how citations are preserved, and where to adapt it for your own scenario."
 
 ## Common questions
 
 - **Does the click-through require Azure access?**
 
-  No. It is a static browser experience. The technical lab requires the services listed in the
+  No. It is a static browser experience. The live technical demo requires the services listed in the
   demo prerequisites.
-- **Does every participant need Microsoft Fabric and Work IQ?**
+- **Which services are required for the live demo?**
 
-  Those capabilities are required only for the corresponding parts. Parts 1 and 2 can be
-  discussed or run independently when the required Search and Web IQ resources are available.
+  Azure AI Search, Foundry, and Fabric are used in the core demo. Web IQ and Work IQ are optional
+  sources that require separate access and approved demo-tenant data.
 - **Is this a production architecture?**
 
   No. It is a learning and demonstration environment. Production deployments need the
   organization's identity, networking, secret management, monitoring, and governance controls.
-- **Can we adapt the scenario?**
+- **Can the presenter adapt the scenario?**
 
   Yes. The extension guide identifies the data, knowledge source, notebook, and infrastructure
   surfaces intended for customization.

@@ -1,26 +1,38 @@
-This is the Foundry IQ Agent-Ready Knowledge workshop repository, adapted from original Microsoft workshop content.
+# Repository Agent Guidelines
 
-If GUIDANCE.md exists in this repo, the repo has not yet been fully set up. When a content creator asks for help preparing the repo, read GUIDANCE.md and follow its instructions. The setup uses a **three-phase model**:
+## Purpose
 
-- **Get Started** — Session identity, learning outcomes, technologies, content owners
-- **Refine Content** — Organize session content into /docs/ and /src/, fill in Getting Started sections (can be run multiple times as content evolves)
-- **Finalize** — Final review, repo settings, slides/recordings links, delete GUIDANCE.md
+This repository contains an internal Microsoft demo for employees to present Foundry IQ to
+customers. The customer is the audience, not an operator of this repository. Keep presenter setup
+clear, repeatable, and focused on the Azure+Fabric demo path.
 
-When the creator asks for help, determine which phase they want to work on. You can detect this based on what's already filled in:
-- If the README still has placeholder text (BRKXXX, "Add Session Description"), start with Get Started
-- If the README has session info but content isn't organized yet, suggest Refine Content
-- If content is organized and they want to finalize, suggest Finalize
+## Safety and demo data
 
-Key constraints:
-- Never commit secrets, API keys, or credentials. Use environment variables.
-- Do not modify LICENSE, LICENSE-DOCS, CODE_OF_CONDUCT.md, or SECURITY.md.
-- Do not add large binary files (PowerPoint, video, recordings) to the repo. Links are fine.
-- The `_remove-before-publish/` folder is for source materials (abstracts, screenshots, notes). Its contents are gitignored — scan it for context but never try to commit files from it. Direct creators to put reference materials there, not in the repo root.
+- Never commit credentials, tokens, tenant-specific endpoints, or generated `.env` files.
+- Use synthetic Zava data and Microsoft-controlled demo identities only.
+- Never use customer data, customer identities, or a personal employee mailbox in a demo.
+- Work IQ is optional and requires approved synthetic content in the demo tenant.
+- Do not change `LICENSE`, `LICENSE-DOCS`, `CODE_OF_CONDUCT.md`, or `SECURITY.md`.
+- Do not add large slide decks, videos, or recordings. Link to approved hosted assets instead.
+- Keep notebook outputs cleared and execution counts reset.
+- Keep README files and the demo setup instructions synchronized with implementation.
+- Do not modify GitHub workflow files without explicit permission.
 
-### Issue Support
-If a user asks for help filing an issue, or reports a problem:
-- Check `.github/ISSUE_TEMPLATE/` to discover available issue templates
-- If templates exist, match the user's request to the best-fit template and walk them through the fields
-- If no templates exist, create a plain issue with a clear title and description
-- Check `gh label list` for available labels and apply relevant ones
-- Do not hardcode template names or labels — always discover what's available at runtime
+## Demo content
+
+- Keep the five notebook parts in order and preserve the Zava customer story where it explains
+  the value of the feature being demonstrated.
+- Write notebook openings as presenter demo flows, not attendee missions.
+- End each notebook with a concise statement of the demo outcome.
+- Use presenter prompts to help explain citations and source selection.
+- Treat Parts 2, 4, and 5 as optional when their separate tenant capabilities are unavailable.
+- Preserve customer-safe wording and do not promise production behavior from this demo.
+
+## Contribution checks
+
+Run the relevant repository tooling before submitting changes:
+
+```bash
+python scripts/demos.py validate
+python -m unittest discover -s tests -v
+```

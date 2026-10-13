@@ -1,6 +1,7 @@
 # Sample Data
 
-This folder contains the synthetic content used to build the Foundry IQ workshop's Azure AI Search indexes and knowledge bases.
+This folder contains synthetic content for the customer demo's Azure AI Search indexes and
+knowledge bases.
 
 ## Contents
 
@@ -15,9 +16,11 @@ This folder contains the synthetic content used to build the Foundry IQ workshop
 
 ## How It Is Used
 
-During `azd up`, `infra/create-knowledge.py` reads `index-data/index.json`, updates the vectorizer endpoint for the deployed Microsoft Foundry resource, creates the two indexes, and uploads the JSONL records. The notebooks then create knowledge sources over those indexes.
+During `azd up`, `infra/create-knowledge.py` reads `index-data/index.json`, updates the vectorizer
+endpoint for the deployed Microsoft Foundry resource, creates the two indexes, and uploads the
+JSONL records. The notebooks then create knowledge sources over those indexes.
 
-`notebooks/restore.ipynb` provides the same restore capability for an existing workshop environment.
+`notebooks/restore.ipynb` provides the same restore capability for an existing demo environment.
 
 ## Reusing Or Replacing The Data
 

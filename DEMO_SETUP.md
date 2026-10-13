@@ -1,6 +1,12 @@
-# Deploy Foundry IQ Agent-Ready Knowledge
+# Prepare the Foundry IQ customer-demo environment
 
-Use this guide to provision and run the Foundry IQ workshop in your own environment. The deployment is intended for learning and demonstration. It creates billable resources and uses public endpoints and local API-key authentication for workshop convenience.
+This runbook is for Microsoft employees preparing the demo in a Microsoft-controlled Azure and
+Fabric tenant. Customers are the audience, not the operators of this repository. Use a dedicated
+demo tenant, demo identity, and synthetic content. Do not sign in with a customer account or use
+personal mailbox data.
+
+The deployment creates billable Azure and Fabric resources and uses public endpoints and local
+API-key authentication for demo convenience. It is not a production deployment guide.
 
 ## What Gets Deployed
 
@@ -9,10 +15,12 @@ Use this guide to provision and run the Foundry IQ workshop in your own environm
 - Azure AI Search with the `hrdocs` and `healthdocs` sample indexes
 - A Microsoft Foundry account and project
 - `gpt-5.4` and `text-embedding-3-large` model deployments
-- A Microsoft Fabric capacity, workspace, lakehouse, sample tables, and ontology when Fabric deployment is enabled
+- A Microsoft Fabric capacity, workspace, lakehouse, sample tables, and ontology
 - A local, Git-ignored `.env` containing the endpoints and credentials used by the notebooks
 
-Parts 1 and 2 use Azure AI Search and Microsoft Foundry. Parts 3 and 5 require Fabric. Part 4 requires Work IQ access in your tenant and uses content available to your signed-in account.
+Parts 1 and 3 are the core Azure+Fabric demo flow. Part 2 optionally adds Web IQ. Parts 4 and 5
+optionally require Work IQ with approved synthetic Microsoft 365 demo content and a dedicated
+demo identity.
 
 ## Prerequisites
 
@@ -21,7 +29,7 @@ Parts 1 and 2 use Azure AI Search and Microsoft Foundry. Parts 3 and 5 require F
 - **Azure CLI** installed and configured ([Install guide](https://learn.microsoft.com/cli/azure/install-azure-cli))
 - **Python 3.10 or later** installed and available as `py` or `python` on Windows, or `python3` on macOS/Linux
 - **Git** (to clone this repository)
-- **VS Code** or **GitHub Codespaces** with Jupyter extension (recommended)
+- **VS Code** with the Jupyter extension (recommended)
 
 Verify the local tools before continuing:
 
@@ -52,48 +60,47 @@ In practice, use an account with **Contributor** and **User Access Administrator
 
 ### Tenant Feature Requirements
 
-- **Fabric IQ:** Microsoft Fabric must be enabled for the tenant. The deploying user must be accepted as the Fabric capacity administrator and be allowed to create workspace items.
-- **Work IQ:** Your user and tenant must have access to Work IQ. Self-deployment does not seed mailbox data, so results depend on content the signed-in user can access.
-- **Web IQ:** Part 2 requires a Web IQ key or access supplied separately. `azd up` does not create this entitlement.
+- **Fabric IQ:** Microsoft Fabric must be enabled for the demo tenant. The deploying user must be
+  accepted as the Fabric capacity administrator and be allowed to create workspace items.
+- **Work IQ:** Optional. This repository does not provision Work IQ or seed a mailbox. Only enable
+  Parts 4–5 when the demo tenant has approved synthetic content and the presenter can use a
+  dedicated demo identity.
+- **Web IQ:** Optional. Part 2 requires approved Web IQ access. `azd up` does not create this
+  entitlement.
 
 > [!NOTE]
-> To run only the Azure AI Search portions, disable Fabric capacity before deployment. Parts 3 and 5 will not be available.
+> The intended live demo environment includes Fabric. Disabling Fabric capacity makes Parts 3 and
+> 5 unavailable.
 
 ## Quick Start
 
-### 1. Clone the Repository
+### 1. Get the demo repository
 
 ```bash
-git clone <your-fork-url> foundry-iq-agent-ready-knowledge
+git clone https://github.com/msftaustin/fabric-iq-foundry-iq-agent-ready-knowledge.git
 cd foundry-iq-agent-ready-knowledge
 ```
 
-### 2. Create and activate a Python virtual environment
+### 2. Create and activate the Python environment
 
-#### Windows (PowerShell)
+#### Windows
 
 ```powershell
 py -3 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-If PowerShell blocks activation, run:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\.venv\Scripts\Activate.ps1
-```
-
-#### macOS/Linux (bash/zsh)
+#### Linux or macOS
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Deploy with azd
+### 3. Provision Azure and Fabric
 
-Authenticate both CLIs in the same tenant. Both commands use browser authentication by default. Replace `<tenant-id>` with the Microsoft Entra tenant where you will deploy.
+Authenticate to the approved demo tenant and select the subscription where demo resources are
+allowed. Both commands use browser authentication by default.
 
 ```bash
 az login --tenant "<tenant-id>"
@@ -113,7 +120,7 @@ If needed, select it explicitly:
 az account set --subscription "<subscription name or ID>"
 ```
 
-Create and select an azd environment. Use a short name that identifies your deployment:
+Create an azd environment for this demo:
 
 ```bash
 azd env new foundry-iq
@@ -126,7 +133,7 @@ azd env set AZURE_LOCATION eastus2
 azd env set AZURE_SEARCH_LOCATION westcentralus
 ```
 
-Store the deploying user's UPN in that environment. The Bicep template requires this value even when Fabric capacity deployment is disabled.
+The Bicep template needs the deploying user's UPN for Fabric administration:
 
 PowerShell:
 
@@ -140,53 +147,31 @@ bash/zsh:
 azd env set AZURE_FABRIC_ADMIN_UPN "$(az account show --query user.name -o tsv)"
 ```
 
-Then choose one deployment mode.
-
-#### Full Lab With Fabric
-
-PowerShell:
-
-```powershell
-azd env set DEPLOY_FABRIC_CAPACITY true
-azd up
-```
-
-bash/zsh:
+Provision the complete Azure+Fabric demo environment:
 
 ```bash
 azd env set DEPLOY_FABRIC_CAPACITY true
 azd up
 ```
 
-#### Azure AI Search Only
-
-This lower-cost path supports Parts 1 and 2. It does not provision the Fabric resources required by Parts 3 and 5.
-
-```bash
-azd env set DEPLOY_FABRIC_CAPACITY false
-azd up
-```
-
-This will:
+This provisions and configures:
 
 - Provision AI Search, the Foundry project, and model deployments
-- Provision Fabric capacity only when `DEPLOY_FABRIC_CAPACITY` is `true`
+- Provision Fabric capacity, workspace content, lakehouse, and ontology
 - Fetch API keys and write a `.env` file with all required variables
 - Create search indexes and upload sample data
-- Set up the Fabric Lakehouse with Zava DIY dataset and ontology
 
-The command may prompt for any environment values not set above. Resource names are generated from the environment and resource-group identity. Deployment can take several minutes, especially while Fabric items and model deployments become available.
-
-> **Note:** Email seeding (used in the hosted Skillable lab for Part 4 - Work IQ) requires a service principal with `Mail.Send` application permission and is **not run** during self-deploy. Part 4 will use your own mailbox data instead.
+The command may prompt for environment values not set above. Resource names are generated from
+the environment and resource-group identity. Deployment can take several minutes, especially
+while Fabric items and model deployments become available.
 
 ### 4. Validate the Deployment
 
 Successful post-provisioning prints `Postprovision complete` and creates a `.env` in the repository root. Do not commit this file.
 
-Check the azd environment and required configuration without printing secret values:
+Check that required configuration is present without printing secret values:
 
 ```powershell
-azd env get-values
 .venv\Scripts\python.exe -c "from dotenv import dotenv_values; required=['AZURE_SEARCH_SERVICE_ENDPOINT','AZURE_SEARCH_ADMIN_KEY','AZURE_OPENAI_ENDPOINT','AZURE_OPENAI_KEY','AZURE_OPENAI_CHATGPT_DEPLOYMENT','AZURE_OPENAI_EMBEDDING_DEPLOYMENT','AZURE_TENANT_ID']; values=dotenv_values('.env'); missing=[name for name in required if not values.get(name)]; print('Configuration ready' if not missing else 'Missing: ' + ', '.join(missing))"
 ```
 
@@ -200,12 +185,14 @@ On macOS/Linux, replace `.venv\Scripts\python.exe` with `.venv/bin/python`.
 
 You can also verify the indexes in the Azure portal. Open the deployed Azure AI Search service and confirm that `hrdocs` and `healthdocs` exist and contain documents.
 
-### 5. Start the Workshop
+### 5. Run the live demo
 
 1. Open the [notebooks](notebooks) folder in VS Code.
 1. Select the Python interpreter from `.venv` as the notebook kernel.
 1. Start with `part1-standard-foundry-iq-kb.ipynb`.
-1. Run each notebook from top to bottom and complete the five parts in order.
+1. Run Parts 1 and 3 for the core Azure+Fabric flow.
+1. Run Parts 2, 4, and 5 only when the demo tenant has the required Web IQ and approved
+   synthetic Work IQ sources.
 
 Later notebooks reuse resources from earlier parts. If the search indexes were deleted or setup was interrupted, run `notebooks/restore.ipynb` before restarting Part 1.
 
@@ -249,11 +236,13 @@ azd hooks run postprovision
 
 ### Interactive Sign-In Opens The Wrong Tenant
 
-Sign out of other Microsoft accounts in the browser or use a private browser window. The interactive identity used by Parts 3 through 5 must belong to the same tenant as the deployed resources and have access to the relevant Fabric and Work IQ data.
+Sign out of other Microsoft accounts in the browser or use a private browser window. The
+interactive identity used by the Fabric and optional Work IQ demo flows must belong to the demo
+tenant and have access to the relevant resources. Never use a customer's identity.
 
 ## Cleanup
 
-Delete resources as soon as you finish to stop ongoing charges:
+Delete resources when the demo environment is no longer needed to stop ongoing charges:
 
 ```bash
 azd down --purge --force
@@ -263,9 +252,12 @@ Confirm the prompt for the same environment used by `azd up`. Then verify the re
 
 Local files such as `.env`, `.venv`, and generated logs are ignored by Git. Remove them manually when you no longer need the local environment.
 
-## Production Use
+## Security Boundary
 
-This repository is a lab, not a production reference architecture. Before adapting it for organizational workloads, replace key-based notebook authentication with Microsoft Entra ID, restrict public network access, use least-privilege scopes for role assignments, store secrets in an approved secret store, and add operational monitoring and policy controls.
+This repository is for controlled demos, not production workloads. It provisions public endpoints
+and uses key-based notebook authentication to simplify the demonstration. Use only synthetic
+content and non-customer test identities. Do not repurpose this environment for production or
+customer data.
 
 ## Additional Resources
 

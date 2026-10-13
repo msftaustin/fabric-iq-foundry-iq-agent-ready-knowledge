@@ -66,5 +66,5 @@ python scripts/demos.py catalog
 - Document resource cleanup for every cloud deployment path.
 - Put reusable presentation behavior under `shared/`.
 - Update the template and validator together when changing the package contract.
-- Preserve the root workshop paths. The Foundry IQ catalog entry is a presentation layer over
-  the existing workshop rather than a second copy of it.
+- Keep Azure and Fabric deployment paths stable. The catalog entry is a presenter-facing layer
+  over the existing notebooks rather than a second copy of the demo implementation.

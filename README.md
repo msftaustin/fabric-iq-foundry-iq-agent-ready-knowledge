@@ -2,171 +2,121 @@
 
 # Agent-Ready Knowledge with Foundry IQ
 
-### A hands-on path from enterprise data to multi-source, citation-backed answers
+### A repeatable Microsoft demo for grounded answers across enterprise data
 
 [![Microsoft Foundry](https://img.shields.io/badge/Microsoft%20Foundry-Agentic%20Knowledge-0078D4)](https://learn.microsoft.com/azure/ai-foundry/)
 [![Azure AI Search](https://img.shields.io/badge/Azure%20AI%20Search-Agentic%20Retrieval-0089D6)](https://learn.microsoft.com/azure/search/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Jupyter](https://img.shields.io/badge/Jupyter-Notebooks-F37626?logo=jupyter&logoColor=white)](notebooks/)
 
-Build an Azure AI Search knowledge base, connect it to indexed documents, Web IQ, Fabric IQ, and Work IQ, then combine those sources into one grounded retrieval experience.
+Prepare an Azure and Fabric demo environment, then show how Foundry IQ grounds answers in
+enterprise documents, structured operational data, web results, and approved workplace context.
 
-**Five notebooks | Two ways to run | One progressive lab**
+**For Microsoft employees presenting to customers. Customers do not need to clone, deploy, or
+operate this repository.**
 
 </div>
 
-> [!NOTE]
-> This repository is a personal adaptation of Microsoft's original [Build Agentic Knowledge Bases workshop](https://github.com/microsoft/Build26-LAB532-from-data-to-context-agent-ready-knowledge-with-foundry-iq). Credit for the original workshop and source material belongs to Microsoft and the original content owners listed below. This adaptation is independently maintained and is not an official Microsoft publication.
-
-## Start Here
-
-| Your environment | Best path | What you need |
-|:-----------------|:----------|:--------------|
-| Instructor-provided workshop environment | **[Open the guided workshop](workshop/README.md)** | Credentials and resources supplied by the instructor |
-| Your own Azure subscription and tenant | **[Open the self-deployment guide](deploy_yourself.md)** | Azure CLI, Azure Developer CLI, Python 3.10+, and deployment permissions |
-| Exploring the project before deployment | **[Review the notebooks](notebooks/)** | No deployment required to read the material |
-
 > [!IMPORTANT]
-> Parts 3 and 5 require Microsoft Fabric. Part 4 requires Work IQ access. Part 2 requires Web IQ access or a key supplied separately. These tenant capabilities are not included with a standard Azure subscription.
+> This public repository is designed for Microsoft employees to deliver customer demos. Customers
+> are the audience, not the operators of this repo. Use a Microsoft-controlled demo tenant,
+> synthetic data, and demo identities. Never use customer content or a personal employee mailbox.
+> Treat everything committed here as publicly visible.
 
-## Demo Tracks
+## Start a Demo
 
-This repository follows the reusable demo framework established by
-[dbruun/AITrailBlazers](https://github.com/dbruun/AITrailBlazers/tree/copilot/build-reusable-demo-framework).
-The workshop content remains in its original locations, with two easy entry points:
+| Need | Start here |
+|:-----|:-----------|
+| Rehearse the story without cloud access | [Open the browser walkthrough](demos/foundry-iq-agent-ready-knowledge/walkthrough/index.html) and its [presenter guide](demos/foundry-iq-agent-ready-knowledge/walkthrough/README.md) |
+| Provision and run the live demo | Follow the [demo environment setup](DEMO_SETUP.md), then run the notebooks in sequence |
+| Understand the architecture and demo package | Read the [demo overview](demos/foundry-iq-agent-ready-knowledge/README.md) |
 
-| Track | Audience | Start here |
-|:------|:---------|:-----------|
-| **Click-through walkthrough** | Sellers, executives, and non-technical audiences | [Open the no-install browser walkthrough](demos/foundry-iq-agent-ready-knowledge/walkthrough/index.html) and use the [presenter script](demos/foundry-iq-agent-ready-knowledge/walkthrough/README.md) |
-| **Run, deploy, and extend** | Developers, architects, and technical sellers | [Open the demo landing page](demos/foundry-iq-agent-ready-knowledge/README.md), then choose the guided or self-deployment path |
+The self-contained walkthrough is for presentation and rehearsal. It is not a recording of a live
+Azure environment. The technical demo uses the resources and notebooks listed below.
 
-Browse this demo and future additions in the [demo catalog](demos/README.md).
-
-## What You Will Build
+## Demo Flow
 
 ```mermaid
 flowchart LR
-    A[Documents and indexes] --> B[Azure AI Search]
-    C[Web IQ via MCP] --> F[Foundry IQ knowledge base]
-    D[Fabric IQ] --> F
-    E[Work IQ] --> F
-    B --> F
-    F --> G[Citation-backed answers]
+    A[Synthetic documents] --> B[Azure AI Search]
+    B --> E[Foundry IQ knowledge base]
+    C[Fabric IQ ontology] --> E
+    D[Web IQ via MCP - optional] --> E
+    F[Work IQ - optional, approved demo identity] --> E
+    E --> G[Grounded answers with citations]
 ```
 
-By completing the workshop, you will learn to:
+| Part | Demo | Requirement |
+|:----:|:-----|:------------|
+| **1** | Ground answers in sample HR, benefits, and file content | Azure AI Search and Foundry model deployments |
+| **2** | Add current web grounding through MCP | Approved Web IQ access |
+| **3** | Retrieve structured product information through a Fabric ontology | Microsoft Fabric |
+| **4** | Add workplace context from Work IQ | Approved synthetic/demo-tenant Microsoft 365 content |
+| **5** | Combine Fabric IQ and Work IQ in one answer | Parts 3 and 4 |
 
-- Build a multi-source knowledge base using Azure AI Search agentic retrieval
-- Ground responses in indexed documents and live web content through MCP
-- Add structured Fabric IQ and workplace Work IQ knowledge sources
-- Combine heterogeneous sources into citation-backed answer synthesis
+Parts 1 and 3 are the core Azure+Fabric demo path. Parts 2, 4, and 5 are optional and require
+separate tenant capabilities. Work IQ is not seeded or provisioned by this repository. Do not
+sign in with an employee's real mailbox or a customer's identity to demonstrate it.
 
-## The Five-Part Journey
+## Provisioning and Cost
 
-Complete the notebooks in order. Later parts reuse the indexes and configuration created earlier.
+The [demo environment setup](DEMO_SETUP.md) uses Azure Developer CLI (`azd`) and Bicep to provision
+Azure AI Search, a Microsoft Foundry project with model deployments, and Fabric capacity and
+workspace content. The deployment creates billable resources in the selected Microsoft demo
+tenant.
 
-| Part | Focus | Result | Requirement |
-|:----:|:------|:-------|:------------|
-| **1** | [Search indexes and files](notebooks/part1-standard-foundry-iq-kb.ipynb) | A knowledge base over HR documents, health documents, and an uploaded file | Azure AI Search and model deployments |
-| **2** | [Web grounding with MCP](notebooks/part2-search-mcp-kb.ipynb) | Live web content added as a knowledge source | Web IQ access |
-| **3** | [Structured data with Fabric IQ](notebooks/part3-fabric-iq-to-kb.ipynb) | Product data grounded through a Fabric ontology | Microsoft Fabric |
-| **4** | [Workplace data with Work IQ](notebooks/part4-work-iq-to-kb.ipynb) | Answers grounded in content available to the signed-in user | Work IQ access |
-| **5** | [Combined enterprise knowledge](notebooks/part5-work-iq-fabric-iq-to-kb.ipynb) | Work IQ and Fabric IQ combined in one knowledge base | Parts 3 and 4 |
-
-## Quick Start
-
-### Guided workshop
-
-1. Sign in to the instructor-provided environment.
-1. Complete the [environment setup and validation](workshop/instructions/overview.md).
-1. Open the `notebooks` folder in Visual Studio Code.
-1. Run Part 1, then continue through Part 5 in sequence.
-
-### Your own environment
-
-1. Review all [prerequisites and tenant requirements](deploy_yourself.md#prerequisites).
-1. Clone the repository and create a Python virtual environment.
-1. Authenticate Azure CLI and Azure Developer CLI in the same tenant.
-1. Run `azd up` to provision and configure the workshop environment.
-1. Follow the notebooks in sequence.
-1. Run `azd down --purge --force` when finished.
-
-The self-deployment path creates billable Azure resources. Read the full [self-deployment guide](deploy_yourself.md) before provisioning anything.
-
-## Technology Stack
-
-| Layer | Technology | Role in the workshop |
-|:------|:-----------|:----------------|
-| Knowledge and retrieval | Foundry IQ and Azure AI Search | Agentic retrieval, knowledge sources, and answer synthesis |
-| Models | Azure OpenAI `gpt-5.4` and `text-embedding-3-large` | Reasoning and vector embeddings |
-| External knowledge | Model Context Protocol and Web IQ | Live web grounding |
-| Enterprise context | Microsoft Fabric IQ and Work IQ | Structured and workplace knowledge |
-| Development | Python and Jupyter Notebooks | Interactive workshop exercises |
-| Deployment | Azure Developer CLI and Bicep | Repeatable Azure provisioning |
+- Review required permissions, tenant eligibility, quota, and regions before running `azd up`.
+- The setup writes endpoint and key values to a local `.env` file. It is ignored by Git. Never
+  commit or share it.
+- The sample deployment uses public endpoints and key-based authentication for demo convenience.
+  It is not a production configuration.
+- Delete resources when the demo is over. Follow the Azure and Fabric cleanup checks in
+  [DEMO_SETUP.md](DEMO_SETUP.md).
 
 ## Repository Guide
 
-| Location | Contents |
-|:---------|:---------|
-| [`notebooks/`](notebooks/) | Five exercises, dependency definitions, restore tooling, and a Copilot CLI sidequest |
-| [`infra/`](infra/) | Bicep, post-provision hooks, environment setup, and data-loading automation |
-| [`data/`](data/) | Sample documents and exported Azure AI Search index data |
-| [`workshop/`](workshop/) | Instructor-led setup, workshop flow, and summary |
-| [`deploy_yourself.md`](deploy_yourself.md) | Prerequisites, deployment, validation, troubleshooting, and cleanup |
-| [`demos/`](demos/) | Reusable demo catalog, click-through walkthroughs, presenter scripts, and technical entry points |
-| [`templates/demo-template/`](templates/demo-template/) | Scaffold used to create another demo with the same two-track experience |
-| [`scripts/demos.py`](scripts/demos.py) | Standard-library CLI for scaffolding, validating, and cataloging demos |
+| Location | Purpose |
+|:---------|:--------|
+| [`demos/`](demos/) | Customer-facing story, presenter guide, and reusable demo catalog |
+| [`notebooks/`](notebooks/) | The five technical demo flows, recovery notebook, and pinned dependencies |
+| [`infra/`](infra/) | Azure/Fabric provisioning hooks, sample-index restore, and Fabric data setup |
+| [`data/`](data/) | Synthetic documents and pre-built Azure AI Search index data |
+| [`DEMO_SETUP.md`](DEMO_SETUP.md) | Microsoft presenter setup, validation, troubleshooting, and cleanup |
+| [`templates/demo-template/`](templates/demo-template/) | Starting point for another reusable demo |
+| [`scripts/demos.py`](scripts/demos.py) | Local demo scaffold, catalog, and validation commands |
 
-For implementation details, supported automation, and experimental utility boundaries, see the [infrastructure guide](infra/README.md).
-
-## Reuse the Demo Framework
-
-Create and validate another demo with Python 3.10 or later:
+Create or validate a demo package with Python 3.10 or later:
 
 ```bash
 python scripts/demos.py new my-demo --title "My Demo"
 python scripts/demos.py validate
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the required structure and contribution checklist.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the package conventions.
 
-## Security and Cost
+## Technology
 
-> [!CAUTION]
-> This project is designed for learning and demonstration, not as a production reference architecture.
+| Layer | Technology |
+|:------|:-----------|
+| Knowledge and retrieval | Microsoft Foundry IQ and Azure AI Search |
+| Structured business data | Microsoft Fabric IQ ontology |
+| Optional external context | Web IQ through Model Context Protocol |
+| Optional workplace context | Work IQ with an approved demo identity |
+| Provisioning | Azure Developer CLI and Bicep |
+| Demo flow | Python and Jupyter notebooks |
 
-- Deployment creates Azure AI Search, Microsoft Foundry resources, model deployments, and optionally Microsoft Fabric capacity. Charges continue until those resources are deleted.
-- Setup writes endpoints, identifiers, and API keys to a local `.env`, which is ignored by Git. Never commit or share that file.
-- The sample configuration uses public endpoints and local key authentication for lab convenience. Apply your organization's network, identity, secret-management, and monitoring requirements before production use.
-- Clean up with `azd down --purge --force` and follow the [cleanup verification steps](deploy_yourself.md#cleanup).
+## Attribution and Licensing
 
-## Learn More
+This demo is adapted from Microsoft's **Build Agentic Knowledge Bases: Next-Level RAG with Azure
+AI Search** workshop. The original content owners are [Pamela Fox](https://github.com/pamelafox),
+[Matt Gotteiner](https://github.com/mattgotteiner), and
+[Ayca Bas](https://github.com/aycabas). The original source and history remain available in the
+[Microsoft repository](https://github.com/microsoft/Build26-LAB532-from-data-to-context-agent-ready-knowledge-with-foundry-iq).
 
-| Resource | Topic |
-|:---------|:------|
-| [Azure AI Search documentation](https://learn.microsoft.com/azure/search/) | Search concepts and service capabilities |
-| [Design an index for agentic retrieval](https://learn.microsoft.com/azure/search/search-agentic-retrieval-how-to-index) | Index design for knowledge retrieval |
-| [Create a knowledge base](https://learn.microsoft.com/azure/search/search-agentic-retrieval-how-to-create) | Knowledge-base configuration |
-| [Answer synthesis](https://learn.microsoft.com/azure/search/search-agentic-retrieval-how-to-synthesize) | Grounded answers and citations |
+Code is provided under the [MIT License](LICENSE). Documentation and other applicable content are
+provided under the
+[Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE-DOCS). Original
+copyright and license notices are retained.
 
-## Attribution
-
-This project is derived from Microsoft's **Build Agentic Knowledge Bases: Next-Level RAG with Azure AI Search** workshop.
-
-Original content owners:
-
-- [Pamela Fox](https://github.com/pamelafox)
-- [Matt Gotteiner](https://github.com/mattgotteiner)
-- [Ayca Bas](https://github.com/aycabas)
-
-The original source and its commit history remain available in the [Microsoft repository](https://github.com/microsoft/Build26-LAB532-from-data-to-context-agent-ready-knowledge-with-foundry-iq). Changes in this fork include self-deployment guidance, deployment automation, and adaptations for independent use.
-
-## License and Trademarks
-
-Code is provided under the [MIT License](LICENSE). Documentation and other applicable content are provided under the [Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE-DOCS). The original Microsoft copyright and license notices are retained.
-
-Microsoft names, products, trademarks, and logos remain subject to [Microsoft's Trademark and Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general). This modified repository does not imply Microsoft sponsorship or endorsement.
-
-## Contributing
-
-Issues and pull requests that improve clarity, portability, or the learning experience are welcome. Do not include credentials, tenant data, generated `.env` files, or notebook outputs in contributions. Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
+Microsoft product names and marks are subject to
+[Microsoft's Trademark and Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).
+This demo repo is not a supported product or production reference architecture.

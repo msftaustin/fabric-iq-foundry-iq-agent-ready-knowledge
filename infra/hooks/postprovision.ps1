@@ -54,7 +54,7 @@ if ($env:FABRIC_CAPACITY_ID) {
     Invoke-Python infra\create-lakehouse.py
 }
 
-Write-Host "Postprovision complete! If there were no errors, you can open notebooks/ to start the workshop."
+Write-Host "Postprovision complete. Open notebooks/ to prepare the live demo."
 }
 finally {
     Pop-Location

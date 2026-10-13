@@ -92,9 +92,8 @@ def get_credential():
     """Get the credential used for Fabric API and OneLake calls."""
     global _CREDENTIAL
     if _CREDENTIAL is None:
-        # Always use DefaultAzureCredential — it picks up AZURE_CLIENT_ID,
-        # AZURE_CLIENT_SECRET, AZURE_TENANT_ID env vars (EnvironmentCredential)
-        # which work in headless/subprocess environments like Skillable VMs.
+        # Use the default credential chain so local Azure CLI and environment
+        # credentials work for both interactive and automated demo setup.
         _CREDENTIAL = DefaultAzureCredential()
     return _CREDENTIAL
 
@@ -786,11 +785,11 @@ def main():
     log_message(f"Tenant ID: {FABRIC_TENANT_ID or '(default credential tenant)'}")
     log_message(f"Include Embeddings: {INCLUDE_EMBEDDINGS}")
 
-    # Add lab user as Admin so they can see and use the workspace
+    # Add the demo operator as Admin so they can use the workspace.
     if FABRIC_LAB_USER_OID:
         add_workspace_member(workspace_id, FABRIC_LAB_USER_OID, FABRIC_LAB_USER_UPN, "Admin")
     elif FABRIC_LAB_USER_UPN:
-        log_message(f"WARNING: No object ID for lab user, cannot add to workspace")
+        log_message("WARNING: No object ID for the demo operator, cannot add to workspace")
 
     try:
         total_steps = 6 if CREATE_ONTOLOGY else 5
