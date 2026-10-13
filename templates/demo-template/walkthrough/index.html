@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{DEMO_TITLE}} walkthrough</title>
+    <link rel="stylesheet" href="../../../shared/clickthrough/player.css" />
+  </head>
+  <body>
+    <div id="walkthrough"></div>
+    <script>
+      window.WALKTHROUGH = {
+        title: "{{DEMO_TITLE}}",
+        subtitle: "A presentation-ready story that runs without setup",
+        steps: [
+          {
+            title: "Why this matters",
+            body: "<p>Introduce the customer, task, and current friction.</p>",
+            notes: "Invite the audience to compare this problem with their own environment."
+          },
+          {
+            title: "What changes",
+            body: "<p>Show how the experience improves the task and where AI contributes.</p>",
+            notes: "Focus on the user outcome. Save implementation details for the technical path."
+          },
+          {
+            title: "Where to go next",
+            body: "<div class=\"ct-callout\">Summarize the measurable value and recommend the next action.</div>",
+            notes: "Offer a workshop, deployment, or extension conversation."
+          }
+        ]
+      };
+    </script>
+    <script src="../../../shared/clickthrough/player.js"></script>
+  </body>
+</html>

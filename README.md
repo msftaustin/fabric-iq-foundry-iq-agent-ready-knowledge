@@ -29,6 +29,19 @@ Build an Azure AI Search knowledge base, connect it to indexed documents, Web IQ
 > [!IMPORTANT]
 > Parts 3 and 5 require Microsoft Fabric. Part 4 requires Work IQ access. Part 2 requires Web IQ access or a key supplied separately. These tenant capabilities are not included with a standard Azure subscription.
 
+## Demo Tracks
+
+This repository follows the reusable demo framework established by
+[dbruun/AITrailBlazers](https://github.com/dbruun/AITrailBlazers/tree/copilot/build-reusable-demo-framework).
+The workshop content remains in its original locations, with two easy entry points:
+
+| Track | Audience | Start here |
+|:------|:---------|:-----------|
+| **Click-through walkthrough** | Sellers, executives, and non-technical audiences | [Open the no-install browser walkthrough](demos/foundry-iq-agent-ready-knowledge/walkthrough/index.html) and use the [presenter script](demos/foundry-iq-agent-ready-knowledge/walkthrough/README.md) |
+| **Run, deploy, and extend** | Developers, architects, and technical sellers | [Open the demo landing page](demos/foundry-iq-agent-ready-knowledge/README.md), then choose the guided or self-deployment path |
+
+Browse this demo and future additions in the [demo catalog](demos/README.md).
+
 ## What You Will Build
 
 ```mermaid
@@ -100,8 +113,22 @@ The self-deployment path creates billable Azure resources. Read the full [self-d
 | [`data/`](data/) | Sample documents and exported Azure AI Search index data |
 | [`workshop/`](workshop/) | Instructor-led setup, workshop flow, and summary |
 | [`deploy_yourself.md`](deploy_yourself.md) | Prerequisites, deployment, validation, troubleshooting, and cleanup |
+| [`demos/`](demos/) | Reusable demo catalog, click-through walkthroughs, presenter scripts, and technical entry points |
+| [`templates/demo-template/`](templates/demo-template/) | Scaffold used to create another demo with the same two-track experience |
+| [`scripts/demos.py`](scripts/demos.py) | Standard-library CLI for scaffolding, validating, and cataloging demos |
 
 For implementation details, supported automation, and experimental utility boundaries, see the [infrastructure guide](infra/README.md).
+
+## Reuse the Demo Framework
+
+Create and validate another demo with Python 3.10 or later:
+
+```bash
+python scripts/demos.py new my-demo --title "My Demo"
+python scripts/demos.py validate
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the required structure and contribution checklist.
 
 ## Security and Cost
 

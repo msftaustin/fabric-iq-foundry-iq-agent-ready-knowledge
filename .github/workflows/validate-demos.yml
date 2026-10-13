@@ -1,0 +1,45 @@
+name: Validate reusable demos
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  demo-quality:
+    name: Demo structure and tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check manifests and catalog
+        run: python scripts/demos.py validate
+
+      - name: Test repository tooling
+        run: python -m unittest discover -s tests -v
+
+      - name: Test Python demo packages
+        shell: bash
+        run: |
+          result=0
+          for test_dir in demos/*/tests; do
+            if [[ ! -d "$test_dir" ]] || ! compgen -G "$test_dir/test_*.py" > /dev/null; then
+              continue
+            fi
+            demo_dir="$(dirname "$test_dir")"
+            echo "::group::$demo_dir"
+            (cd "$demo_dir" && python -m unittest discover -s tests -v) || result=1
+            echo "::endgroup::"
+          done
+          exit "$result"

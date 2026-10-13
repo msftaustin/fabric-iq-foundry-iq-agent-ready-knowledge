@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent-Ready Knowledge with Foundry IQ - walkthrough</title>
+    <link rel="stylesheet" href="../../../shared/clickthrough/player.css" />
+  </head>
+  <body>
+    <div id="walkthrough"></div>
+    <script>
+      window.WALKTHROUGH = {
+        title: "Agent-Ready Knowledge with Foundry IQ",
+        subtitle: "From disconnected enterprise data to one citation-backed answer",
+        steps: [
+          {
+            title: "The enterprise knowledge problem",
+            body: "<p>Useful context is split across documents, search indexes, business data, workplace content, and the web.</p><div class=\"ct-callout\">People should not need to know which system holds the answer before they can ask the question.</div>",
+            notes: "Open with a customer scenario. A user needs a complete answer, but each source only contains one part of the context."
+          },
+          {
+            title: "Start with governed documents",
+            body: "<p>Part 1 builds a Foundry IQ knowledge base over Azure AI Search indexes and files. Retrieval returns grounding evidence and citations instead of relying on model memory.</p>",
+            notes: "Emphasize that the first step uses familiar enterprise content and preserves source attribution."
+          },
+          {
+            title: "Add current web context",
+            body: "<p>Part 2 connects Web IQ through the Model Context Protocol. The knowledge base can combine indexed enterprise content with current web information.</p>",
+            notes: "Explain MCP as a standard connection layer. Keep the discussion focused on the business outcome rather than protocol details."
+          },
+          {
+            title: "Bring in structured business meaning",
+            body: "<p>Part 3 adds Fabric IQ through an ontology, giving the knowledge base access to structured entities and relationships.</p>",
+            notes: "Use an example such as products, customers, or operations. The ontology contributes business meaning, not only rows and columns."
+          },
+          {
+            title: "Respect the user's work context",
+            body: "<p>Part 4 adds Work IQ so responses can use workplace information available to the signed-in user.</p>",
+            notes: "Call out that workplace context follows the user's access. Do not imply that the demo bypasses source permissions."
+          },
+          {
+            title: "One answer across knowledge sources",
+            body: "<p>Part 5 combines Work IQ and Fabric IQ in one knowledge base and synthesizes a grounded response across sources.</p><div class=\"ct-callout\">The result is a reusable pattern for multi-source, citation-backed enterprise answers.</div>",
+            notes: "Connect this final step to the opening problem. The user asks once, while Foundry IQ coordinates retrieval across the available sources."
+          },
+          {
+            title: "Choose the next step",
+            body: "<p>Use the guided workshop for an instructor-led experience, or use the Azure Developer CLI path to deploy the lab in your own environment.</p><div class=\"ct-callout\">Technical teams can extend the notebooks, data, infrastructure, and knowledge sources for their own scenarios.</div>",
+            notes: "Close by choosing a call to action for the audience: run the workshop, schedule a technical deep dive, or adapt the scenario."
+          }
+        ]
+      };
+    </script>
+    <script src="../../../shared/clickthrough/player.js"></script>
+  </body>
+</html>
